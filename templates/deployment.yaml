@@ -1,0 +1,24 @@
+containers:
+  - name: {{ .Chart.Name }}
+    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+    imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+    ports:
+      - containerPort: 8000
+
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 8000
+      initialDelaySeconds: 5
+      periodSeconds: 10
+
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8000
+      initialDelaySeconds: 15
+      periodSeconds: 20
+
+    resources:
+      {{- toYaml .Values.resources | nindent 12 }}

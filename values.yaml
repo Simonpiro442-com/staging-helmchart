@@ -1,0 +1,41 @@
+appName: atlas-api
+namespace: atlas-apps
+fullnameOverride: "atlas-api"
+
+
+replicaCount: 2
+
+image:
+  repository: ghcr.io/YOUR_USERNAME/fastapi-k8s
+  pullPolicy: IfNotPresent
+  tag: "1.0"
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+ingress:
+  enabled: true
+  className: nginx
+
+  hosts:
+    - host: azubuikeokom.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 25
+  maxReplicas: 
+  targetCPUUtilizationPercentage: 70
