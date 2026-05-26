@@ -1,24 +1,51 @@
-containers:
-  - name: {{ .Chart.Name }}
-    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-    imagePullPolicy: {{ .Values.image.pullPolicy }}
+apiVersion: apps/v1
+kind: Deployment
 
-    ports:
-      - containerPort: 8000
+metadata:
+  name: atlas-api
 
-    readinessProbe:
-      httpGet:
-        path: /
-        port: 8000
-      initialDelaySeconds: 5
-      periodSeconds: 10
+spec:
+  replicas: 1
 
-    livenessProbe:
-      httpGet:
-        path: /
-        port: 8000
-      initialDelaySeconds: 15
-      periodSeconds: 20
+  selector:
+    matchLabels:
+      app: atlas-api
 
-    resources:
-      {{- toYaml .Values.resources | nindent 12 }}
+  template:
+    metadata:
+      labels:
+        app: atlas-api
+
+    spec:
+      containers:
+        - name: fastapi-chart
+
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 8000
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+
+            requests:
+              cpu: 250m
+              memory: 256Mi
