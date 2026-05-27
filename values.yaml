@@ -19,11 +19,11 @@ ingress:
   enabled: true
   className: nginx
 
-  hosts:
-    - host: azubuikeokom.com
-      paths:
-        - path: /
-          pathType: Prefix
+  # hosts:
+  #   - host: azubuikeokom.com
+  #     paths:
+  #       - path: /
+  #         pathType: Prefix
 
 resources:
   limits:
