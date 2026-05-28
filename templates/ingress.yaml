@@ -22,6 +22,8 @@ metadata:
 
     alb.ingress.kubernetes.io/load-balancer-name: atlas-staging-alb
 
+    external-dns.alpha.kubernetes.io/hostname: app.azubuikeokom.com
+
 spec:
   ingressClassName: alb
 
