@@ -12,11 +12,11 @@ metadata:
 
     alb.ingress.kubernetes.io/target-type: ip
 
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:047631362165:certificate/877c2a7a-8c0b-4d09-a7b5-0cd7498a9614
+    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:047631362165:certificate/877c2a7a-8c0b-4d09-a7b5-0cd7498a9614
 
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    # alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
 
-    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    # alb.ingress.kubernetes.io/ssl-redirect: '443'
 
     alb.ingress.kubernetes.io/healthcheck-path: /
 
