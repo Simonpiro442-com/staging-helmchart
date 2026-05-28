@@ -5,18 +5,21 @@ metadata:
   name: {{ .Release.Name }}-ingress
   annotations:
     kubernetes.io/ingress.class: alb
-
+    # ACM certificate for HTTPS
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:047631362165:certificate/12345678-abcd-1234-abcd-1234567890ab
     # Internet-facing ALB
     alb.ingress.kubernetes.io/scheme: internet-facing
-
-    # Register pods directly
+    # Register pod IPs directly
     alb.ingress.kubernetes.io/target-type: ip
-
     # Health check
     alb.ingress.kubernetes.io/healthcheck-path: /
-
-    # Listener ports
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    # Enable HTTP and HTTPS listeners
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    # Redirect HTTP -> HTTPS
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    # Load balancer name
+    alb.ingress.kubernetes.io/load-balancer-name: atlas-staging-alb
+#    external-dns.alpha.kubernetes.io/hostname: app.azubuikeokom.com
 
 spec:
   ingressClassName: alb
